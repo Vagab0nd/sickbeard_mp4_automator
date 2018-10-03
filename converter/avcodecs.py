@@ -509,10 +509,9 @@ class SubtitleCopyCodec(BaseCodec):
     encoder_options = {'map': int,
                        'source': str}
 
-    optlist = []
-
     def parse_options(self, opt, stream=0):
         safe = self.safe_options(opt)
+        optlist = []
         stream = str(stream)
         if 'source' in safe:
             s = str(safe['source'])
