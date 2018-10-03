@@ -2,6 +2,8 @@
 import os
 import sys
 import json
+import ssl
+
 try:
     from urllib.request import urlopen
 except ImportError:
@@ -32,23 +34,44 @@ try:
         log.debug("Season: %s episode: %s." % (season, episode))
 
         mp = MediaProcessor(settings)
-
+        url = ''
         success = mp.fullprocess(inputfile, MediaType.TV, tvdbid=tvdb_id, season=season, episode=episode, original=original)
         if success:
             try:
-                protocol = "https://" if settings.Sickbeard['ssl'] else "http://"
-                host = settings.Sickbeard['host']  # Server Address
-                port = settings.Sickbeard['port']  # Server Port
-                apikey = settings.Sickbeard['apikey']  # Sickbeard API key
-                webroot = settings.Sickbeard['webroot']  # Sickbeard webroot
+                if settings.Sickbeard['apikey'] == '':
+                    protocol = "https://" if settings.Sickrage['ssl'] else "http://"
+                    host = settings.Sickrage['host']  # Server Address
+                    port = settings.Sickrage['port']  # Server Port
+                    apikey = settings.Sickrage['apikey']  # Sickbeard API key
+                    webroot = settings.Sickrage['webroot']  # Sickbeard webroot
 
-                sickbeard_url = protocol + host + ":" + str(port) + webroot + "/api/" + apikey + "/?cmd=show.refresh&tvdbid=" + str(tvdb_id)
+                    sickrage_url = protocol + host + ":" + str(port) + webroot + "/api/" + apikey + "/?cmd=show.refresh&tvdbid=" + str(tvdb_id)
+                    url = sickrage_url
 
-                refresh = json.load(urlopen(sickbeard_url))
+                    sslcontext = ssl._create_unverified_context()
+                    if settings.Sickrage['cert_path'] != '':
+                        sslcontext=ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+                        sslcontext.load_verify_locations(config.get(section, "cert_path"))
+
+                    refresh = json.load(urlopen(sickrage_url), context=sslcontext)
+
+                else:
+                    protocol = "https://" if settings.Sickbeard['ssl'] else "http://"
+                    host = settings.Sickbeard['host']  # Server Address
+                    port = settings.Sickbeard['port']  # Server Port
+                    apikey = settings.Sickbeard['apikey']  # Sickbeard API key
+                    webroot = settings.Sickbeard['webroot']  # Sickbeard webroot
+
+                    sickbeard_url = protocol + host + ":" + str(port) + webroot + "/api/" + apikey + "/?cmd=show.refresh&tvdbid=" + str(tvdb_id)
+                    url = sickbeard_url
+                    refresh = json.load(urlopen(sickbeard_url))
+
+                sslcontext = settings.getRefreshURLContext()
+                refresh = json.load(urllib.urlopen(settings.getRefreshURL(tvdb_id), context=sslcontext))
                 for item in refresh:
                     log.debug(refresh[item])
             except (IOError, ValueError):
-                log.exception("Couldn't refresh Sickbeard, check your autoProcess.ini settings.")
+                log.exception("Couldn't refresh Sickbeard, check your autoProcess.ini settings. Use url: " + url)
     else:
         log.error("Not enough command line arguments present %s." % len(sys.argv))
         sys.exit(1)

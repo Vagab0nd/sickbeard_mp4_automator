@@ -233,6 +233,7 @@ class ReadSettings:
             'webroot': '',
             'username': '',
             'password': '',
+            'cert_path': '',
         },
         'CouchPotato': {
             'host': 'localhost',
@@ -799,6 +800,7 @@ class ReadSettings:
         self.Sickrage['apikey'] = config.get(section, "apikey")
         self.Sickrage['webroot'] = config.get(section, "webroot")
         self.Sickrage['ssl'] = config.getboolean(section, "ssl")
+        self.Sickrage['cert_path'] = config.get(section, "cert_path")  # certificate path
         self.Sickrage['user'] = config.get(section, "username")
         self.Sickrage['pass'] = config.get(section, "password")
 
@@ -984,3 +986,4 @@ class ReadSettings:
             self.writeConfig(newconfig, configFile)
             return newconfig
         return config
+

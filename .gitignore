@@ -232,3 +232,6 @@ pip-log.txt
 ## VS Code
 #################
 .vscode
+
+#Visual Studio
+.vs/
