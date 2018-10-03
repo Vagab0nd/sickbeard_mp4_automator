@@ -519,7 +519,7 @@ class SubtitleCopyCodec(BaseCodec):
             s = str(0)
         if 'map' in safe:
             optlist.extend(['-map', s + ':' + str(safe['map'])])
-        optlist.extend(['-c:s:' + stream, copy])
+        optlist.extend(['-c:s:' + stream, 'copy'])
         return optlist
 
 
