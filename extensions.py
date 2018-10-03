@@ -6,7 +6,7 @@ valid_poster_extensions = ['jpg', 'png']
 valid_subtitle_extensions = ['srt', 'vtt', 'ass', 'sup']
 valid_formats = ['mp4', 'mov']
 tmdb_api_key = "45e408d2851e968e6e4d0353ce621c66"
-valid_internal_subcodecs = ['mov_text']
+valid_internal_subcodecs = ['mov_text', 'srt', 'ass', 'ssa', 'copy']
 valid_external_subcodecs = ['srt', 'webvtt', 'ass', 'pgs']
 subtitle_codec_extensions = {'srt': 'srt',
                              'webvtt': 'vtt',
