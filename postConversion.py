@@ -79,7 +79,7 @@ if len(sys.argv) > 4:
                 for item in refresh:
                     log.debug(refresh[item])
             except (IOError, ValueError):
-                log.exception("Couldn't refresh Sickbeard, check your autoProcess.ini settings.")
+                log.exception("Couldn't refresh Sickbeard, check your autoProcess.ini settings. Use url: " + settings.getRefreshURL(tvdb_id))
 
             plex.refreshPlex(settings, 'show', log)
 
