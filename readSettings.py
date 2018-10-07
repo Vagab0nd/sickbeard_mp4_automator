@@ -751,6 +751,9 @@ class ReadSettings:
     def getRefreshURL(self, tvdb_id):
         config = self.config
         section = "SickBeard"
+        
+        if config.get(section, "api_key") is None
+            section = "Sickrage"
 
         protocol = "http://"  # SSL
         try:
