@@ -753,7 +753,7 @@ class ReadSettings:
         config = self.config
         section = "SickBeard"
         
-        if config.get(section, "api_key") is None:
+        if config.get(section, "api_key") == '':
             section = "Sickrage"
 
         protocol = "http://"  # SSL
@@ -774,12 +774,12 @@ class ReadSettings:
         config = self.config
         section = "SickBeard"
         
-        if config.get(section, "api_key") is None:
+        if config.get(section, "api_key") == '':
             section = "Sickrage"
         else:
             return ssl._create_unverified_context()
         
-        if config.get(section, "cert_path") is None:
+        if config.get(section, "cert_path") == '':
             return ssl._create_unverified_context()
         
         sslcontext=ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
