@@ -775,7 +775,7 @@ class ReadSettings:
         
         if config.get(section, "api_key") is None:
             section = "Sickrage"
-        else
+        else:
             return ssl._create_unverified_context()
         
         if config.get(section, "cert_path") is None:
