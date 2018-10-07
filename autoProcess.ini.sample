@@ -148,6 +148,7 @@ password =
 web_root =
 ssl = False
 api_key =
+cert_path =
 
 [Plex]
 host = localhost
