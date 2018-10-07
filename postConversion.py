@@ -74,7 +74,8 @@ if len(sys.argv) > 4:
                 post_processor.run_scripts()
 
             try:
-                refresh = json.load(urllib.urlopen(settings.getRefreshURL(tvdb_id)))
+                sslcontext = settings.getRefreshURLContext()
+                refresh = json.load(urllib.urlopen(settings.getRefreshURL(tvdb_id), context=sslcontext))
                 for item in refresh:
                     log.debug(refresh[item])
             except (IOError, ValueError):
