@@ -768,6 +768,22 @@ class ReadSettings:
 
         sickbeard_url = protocol + host + ":" + port + web_root + "/api/" + api_key + "/?cmd=show.refresh&tvdbid=" + str(tvdb_id)
         return sickbeard_url
+    
+    def getRefreshURLContext(self):
+        config = self.config
+        section = "SickBeard"
+        
+        if config.get(section, "api_key") is None
+            section = "Sickrage"
+        else
+            return ssl._create_unverified_context()
+        
+        if config.get(section, "cert_path") is None
+            return ssl._create_unverified_context()
+        
+        sslcontext=ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+        sslcontext.load_verify_locations(config.get(section, "cert_path"))
+        return sslcontext
 
     def writeConfig(self, config, cfgfile):
             fp = open(cfgfile, "w")
