@@ -172,7 +172,8 @@ class ReadSettings:
                        'api_key': '',
                        'web_root': '',
                        'username': '',
-                       'password': ''}
+                       'password': '',
+                       'cert_path': ''}
 
         # Default deluge settings
         deluge_defaults = {'couchpotato-label': 'couchpotato',
@@ -707,6 +708,7 @@ class ReadSettings:
         self.Sickrage['api_key'] = config.get(section, "api_key")  # Sickbeard API key
         self.Sickrage['web_root'] = config.get(section, "web_root")  # Sickbeard webroot
         self.Sickrage['ssl'] = config.getboolean(section, "ssl")  # SSL
+        self.Sickrage['cert_path'] = config.get(section, "cert_path")  # certificate path
         self.Sickrage['user'] = config.get(section, "username")
         self.Sickrage['pass'] = config.get(section, "password")
 
