@@ -837,11 +837,11 @@ class MkvtoMp4:
                 self.log.exception("Unable to rename output file to its final destination file extension")
                 finaloutputfile = outputfile
             
-        if not os.path.isfile(outputfile) and os.path.isfile(inputfile) and inputfile.endswith(".original"):
+        if not os.path.isfile(outputfile) and not os.path.isfile(finaloutputfile) and os.path.isfile(inputfile) and inputfile.endswith(".original"):
             os.rename(inputfile, inputfile.rstrip(".original"))
             inputfile = inputfile.rstrip(".original")
             
-        return outputfile, inputfile
+        return finaloutputfile, inputfile
 
     # Break apart a file path into the directory, filename, and extension
     def parseFile(self, path):
