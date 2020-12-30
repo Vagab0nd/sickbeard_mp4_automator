@@ -48,12 +48,14 @@ try:
                     sickrage_url = protocol + host + ":" + str(port) + webroot + "/api/" + apikey + "/?cmd=show.refresh&tvdbid=" + str(tvdb_id)
                     url = sickrage_url
 
-                    sslcontext = ssl._create_unverified_context()
                     if settings.Sickrage['cert_path'] != '':
                         sslcontext=ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
                         sslcontext.load_verify_locations(config.get(section, "cert_path"))
+                        refresh = json.load(urlopen(sickrage_url), context=sslcontext)
+                    else:
+                        sslcontext = ssl._create_unverified_context()
+                        refresh = json.load(urlopen(sickrage_url), context=sslcontext)
 
-                    refresh = json.load(urlopen(sickrage_url), context=sslcontext)
 
                 else:
                     protocol = "https://" if settings.Sickbeard['ssl'] else "http://"
