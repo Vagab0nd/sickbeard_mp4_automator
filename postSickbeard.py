@@ -72,7 +72,8 @@ try:
                 refresh = json.load(urllib.urlopen(settings.getRefreshURL(tvdb_id), context=sslcontext))
                 for item in refresh:
                     log.debug(refresh[item])
-            except (IOError, ValueError):
+            except (IOError, ValueError) as e:
+                log.exception(e)
                 log.exception("Couldn't refresh Sickbeard, check your autoProcess.ini settings. Use url: " + url)
     else:
         log.error("Not enough command line arguments present %s." % len(sys.argv))
