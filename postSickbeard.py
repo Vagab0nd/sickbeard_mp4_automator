@@ -50,7 +50,7 @@ try:
 
                     if settings.Sickrage['cert_path'] != '':
                         sslcontext=ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
-                        sslcontext.load_verify_locations(config.get(section, "cert_path"))
+                        sslcontext.load_verify_locations(settings.Sickrage['cert_path'])
                         refresh = json.load(urlopen(sickrage_url), context=sslcontext)
                     else:
                         sslcontext = ssl._create_unverified_context()
